@@ -34,4 +34,10 @@ jobs:
         run: |
           content=`cat __about__.py`
           echo $content
-          echo ${content}
+          regex_pattern="(\d*\.\d*\.\d*)(?:")$"
+
+          if [[ "$content" =~ $regex_pattern ]]; then
+            echo ${BASH_REMATCH[1]}
+          else
+            echo Failed to find version
+          fi
