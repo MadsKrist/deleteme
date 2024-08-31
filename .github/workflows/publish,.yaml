@@ -24,20 +24,12 @@ jobs:
 
   get-version:
     runs-on: ubuntu-latest
-    # needs: check-version
-    #  if: ${{ needs.check-version.outputs.updated == 'false'}}
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
         name: Checkout
 
-      - id: read-file
-        run: |
-          content=`cat __about__.py`
-          regex_pattern='([0-9]+\.[0-9]+\.[0-9]+)\"$'
-
-          if [[ $content =~ $regex_pattern ]]; then
-              echo "${BASH_REMATCH[1]}"
-          else
-              echo "couldn't find version"
-              exit 1
-          fi
+      - uses: "./.github/actions/get-version"
+        name: Get version
+        id: get-version
