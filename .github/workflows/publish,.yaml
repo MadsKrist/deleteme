@@ -1,0 +1,33 @@
+name: Publish Python Package
+
+#hatch version minor; git add .; git commit -m "auto"; git push
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    outputs:
+      updated: ${{ steps.check-version.outputs.version-changed }}
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout
+
+      - uses: ./.github/actions/filter-version
+        name: Check version
+        id: check-version
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  get-version:
+    runs-on: ubuntu-latest
+    needs: check-version
+    if: ${{ needs.check-version.outputs.updated == 'true'}}
+    steps:
+      - id: read-file
+        run: |
+          content=`cat .__about__.py`
+          echo content
