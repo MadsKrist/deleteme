@@ -25,6 +25,8 @@ jobs:
   get-version:
     runs-on: ubuntu-latest
     name: Get Version
+    needs: check-version
+    if: ${{ needs.check-version.outputs.updated == 'true'}}
     outputs:
       version: ${{ steps.get-version.outputs.version }}
     steps:
