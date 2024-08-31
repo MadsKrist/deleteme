@@ -37,7 +37,7 @@ jobs:
           regex_pattern="(\d*)\"$"
 
           if [[ "$content" =~ $regex_pattern ]]; then
-            echo ${BASH_REMATCH}
+            echo ${BASH_REMATCH[2]}
           else
             echo Failed to find version
           fi
