@@ -8,24 +8,24 @@ on:
     branches: ["main"]
 
 jobs:
-  check-version:
-    runs-on: ubuntu-latest
-    outputs:
-      updated: ${{ steps.check-version.outputs.version-changed }}
-    steps:
-      - uses: actions/checkout@v4
-        name: Checkout
+  #check-version:
+  #  runs-on: ubuntu-latest
+  #  outputs:
+  #   updated: ${{ steps.check-version.outputs.version-changed }}
+  #  steps:
+  #    - uses: actions/checkout@v4
+  #     name: Checkout
 
-      - uses: ./.github/actions/filter-version
-        name: Check version
-        id: check-version
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+  #    - uses: ./.github/actions/filter-version
+  #     name: Check version
+  #     id: check-version
+  #     with:
+  #       github-token: ${{ secrets.GITHUB_TOKEN }}
 
   get-version:
     runs-on: ubuntu-latest
-    needs: check-version
-    if: ${{ needs.check-version.outputs.updated == 'false'}}
+    # needs: check-version
+    #  if: ${{ needs.check-version.outputs.updated == 'false'}}
     steps:
       - uses: actions/checkout@v4
         name: Checkout
