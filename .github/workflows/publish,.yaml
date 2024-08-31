@@ -29,5 +29,5 @@ jobs:
     steps:
       - id: read-file
         run: |
-          content=`cat .__about__.py`
+          content=`cat __about__.py`
           echo content
