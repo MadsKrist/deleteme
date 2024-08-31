@@ -24,6 +24,7 @@ jobs:
 
   get-version:
     runs-on: ubuntu-latest
+    name: Get Version
     outputs:
       version: ${{ steps.get-version.outputs.version }}
     steps:
@@ -33,3 +34,20 @@ jobs:
       - uses: "./.github/actions/get-version"
         name: Get version
         id: get-version
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: get-version
+    name: Create Release
+    steps:
+      # - uses: actions/checkout@v4
+      #   name: Checkout
+
+      - run: |
+          echo ${{needs.get-version.outputs.version}}
+
+  #     - name: Create Release
+  #       id: create-release
+  #      uses: actions/create-release@v1
+  #       env:
+  #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
