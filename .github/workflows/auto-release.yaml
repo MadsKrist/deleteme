@@ -10,6 +10,7 @@ on:
 jobs:
   check-version:
     runs-on: ubuntu-latest
+    name: Check Version Change
     outputs:
       updated: ${{ steps.check-version.outputs.version-changed }}
     steps:
@@ -36,6 +37,8 @@ jobs:
       - uses: "./.github/actions/get-version"
         name: Get version
         id: get-version
+        with:
+          path: ${{needs.check-version.outputs.path}}
 
   create-release:
     runs-on: ubuntu-latest

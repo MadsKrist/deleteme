@@ -4,6 +4,10 @@ outputs:
   version:
     description: "New version"
     value: ${{ steps.read-file.outputs.version }}
+inputs:
+  path:
+    description: "Path to file"
+    required: true
 runs:
   using: composite
   steps:
@@ -11,7 +15,10 @@ runs:
       id: read-file
       shell: bash
       run: |
-        content=`cat __about__.py`
+        echo ${{ inputs.path }}
+        content=`cat ${{ inputs.path }}`
+        echo ${{content}}
+
         regex_pattern='([0-9]+\.[0-9]+\.[0-9]+)\"$'
 
         if [[ $content =~ $regex_pattern ]]; then

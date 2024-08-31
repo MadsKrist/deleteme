@@ -8,6 +8,9 @@ outputs:
   version-changed:
     description: "Has version changed"
     value: ${{ steps.check-changed-files.outputs.version-changed }}
+  path:
+    description: "Path to file"
+    value: ${{ steps.check-changed-files.outputs.path }}
 runs:
   using: composite
   steps:
@@ -25,6 +28,7 @@ runs:
         for changed_file in ${{ steps.get-changed-files.outputs.modified }}; do
           if [[ "$changed_file" == *"__about__.py"* ]]; then
             echo "version-changed=true" >> $GITHUB_OUTPUT
+            echo "path={$changed_file}" >> $GITHUB_OUTPUT
             break
           fi
         done
