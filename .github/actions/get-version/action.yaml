@@ -1,13 +1,13 @@
 name: Get Version
 description: "Gets version number from __about__.py"
-outputs:
-  version:
-    description: "New version"
-    value: ${{ steps.read-file.outputs.version }}
 inputs:
   path:
     description: "Path to file"
     required: true
+outputs:
+  version:
+    description: "New version"
+    value: ${{ steps.read-file.outputs.version }}
 runs:
   using: composite
   steps:
@@ -15,8 +15,9 @@ runs:
       id: read-file
       shell: bash
       run: |
-        echo ${{ inputs.path }}
-        content=`cat ${{ inputs.path }}`
+        #echo ${{ inputs.path }}
+        #content=`cat ${{ inputs.path }}`
+        content=`cat __about__.py`
         echo ${{content}}
 
         regex_pattern='([0-9]+\.[0-9]+\.[0-9]+)\"$'
