@@ -34,7 +34,7 @@ jobs:
         run: |
           content=`cat __about__.py`
           echo "$content"
-          regex_pattern="(\d*\.\d*\.\d*)(?:\")$"
+          regex_pattern="(\d*)\"$"
 
           if [[ "$content" =~ $regex_pattern ]]; then
             echo ${BASH_REMATCH[1]}
