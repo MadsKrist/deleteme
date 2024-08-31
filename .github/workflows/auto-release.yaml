@@ -1,4 +1,4 @@
-name: Publish Python Package
+name: Auto Release
 
 #hatch version minor; git add .; git commit -m "auto"; git push
 on:
